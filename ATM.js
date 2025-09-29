@@ -9,18 +9,28 @@ if (pin === "1234") {
         if (amount <= bal) {
             bal-= amount;
             alert("Withdrawal successful! New balance: " + bal);
-        } else {
+        } 
+        
+        else {
             alert("Insufficient balance!");
         }
-    } else if (choice === "2") {
+    } 
+
+    else if (choice === "2") {
         let amount = Number(prompt("Enter amount to deposit:"));
         bal += amount;
         alert("Deposit successful! New balance: " + bal);
-    } else if (choice === "3") {
+    } 
+    
+    else if (choice === "3") {
         alert("Your current balance is: " + bal);
-    } else {
+    } 
+    
+    else {
         alert("Invalid choice!");
     }
+
+    
 } else {
     alert("Incorrect PIN!");
 }
