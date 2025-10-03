@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+  <style>
+    /* 1. Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #eef2f7;
+    }
+
+    /* 2. Page Title */
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    /* 3. Section Headings */
+    h2 {
+      background: #007BFF;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* 4. Section Boxes */
+    section {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+
+    }
+
+    /* 5. Inputs and Buttons */
+    input, button {
+      margin: 5px;
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    /* 6. Output Styling */
+    p{
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎓 Student Personal Dashboard</h1>
+
+<!-- Profile Section -->
+<section>
+  <h2>Profile</h2>
+  Name: <input id="name"><br>
+  Birth Year: <input id="birthYear"><br>
+  City: <input id="city"><br>
+  <button onclick="saveProfile()">Save Profile</button>
+  <p id="profileOutput"></p>
+</section>
+
+<!-- Age Checker -->
+<section>
+  <h2>Age Checker</h2>
+  <button onclick="checkAge()">Check Age</button>
+  <p id="ageOutput"></p>
+</section>
+
+<!-- Greeting -->
+<section>
+  <h2>Greeting</h2>
+  <button onclick="showGreeting()">Show Greeting</button>
+  <p id="greetOutput"></p>
+</section>
+
+<!-- Calculator -->
+<section>
+  <h2>Calculator</h2>
+  <input id="num1" placeholder="Number 1">
+  <input id="num2" placeholder="Number 2"><br>
+  <button onclick="calculate('+')">+</button>
+  <button onclick="calculate('-')">-</button>
+  <button onclick="calculate('*')">*</button>
+  <button onclick="calculate('/')">/</button>
+  <p id="calcOutput"></p>
+</section>
+
+<!-- Quotes -->
+<section>
+  <h2>Motivational Quotes</h2>
+  <button onclick="showQuote()">Show Quote</button>
+  <p id="quoteOutput"></p>
+</section>
+
+<!-- JSON Info -->
+<section>
+  <h2>View Stored Info (JSON)</h2>
+  <button onclick="showJSON()">View JSON</button>
+  <pre id="jsonOutput"></pre>
+</section>
+
+<script>
+  // Create an object to store student info
+  let student = { name: "", birthYear: 0, city: "" };
+
+  // 1. Save Profile
+  function saveProfile() {
+    let n = document.getElementById("name").value;
+    let y = document.getElementById("birthYear").value;
+    let c = document.getElementById("city").value;
+
+    if (n == "" || y == "" || c == "") {
+      document.getElementById("profileOutput").innerText = "Please fill all fields!";
+      return;
+    }
+
+    student.name = n;
+    student.birthYear = parseInt(y);
+    student.city = c;
+
+    document.getElementById("profileOutput").innerText = 
+      "Hello " + student.name + " from " + student.city;
+  }
+
+  // 2. Check Age
+  function checkAge() {
+    if (student.birthYear == 0) {
+      document.getElementById("ageOutput").innerText = "Enter your profile first!";
+      return;
+    }
+    let age = new Date().getFullYear() - student.birthYear;
+    let eligible = (age >= 18) ? "Eligible (18+)" : "Not Eligible (<18)";
+    document.getElementById("ageOutput").innerText = "Age: " + age + " → " + eligible;
+  }
+
+  // 3. Greeting
+  function showGreeting() {
+    let hour = new Date().getHours();
+    let greet;
+    if (hour < 12) greet = "Good Morning";
+    else if (hour < 18) greet = "Good Afternoon";
+    else greet = "Good Evening";
+
+    document.getElementById("greetOutput").innerText = greet + " " + student.name;
+  }
+
+  // 4. Calculator
+  function calculate(op) {
+    let n1 = Number(document.getElementById("num1").value);
+    let n2 = Number(document.getElementById("num2").value);
+
+    if (isNaN(n1) || isNaN(n2)) {
+      document.getElementById("calcOutput").innerText = "Enter valid numbers!";
+      return;
+    }
+
+    let result;
+    if (op == "+") result = n1 + n2;
+    if (op == "-") result = n1 - n2;
+    if (op == "*") result = n1 * n2;
+    if (op == "/") {
+      if (n2 == 0) {
+        document.getElementById("calcOutput").innerText = "Cannot divide by 0!";
+        return;
+      }
+      result = n1 / n2;
+    }
+
+    document.getElementById("calcOutput").innerText = "Result: " + result;
+  }
+
+  // 5. Motivational Quotes
+  function showQuote() {
+    let quotes = [
+      "Believe in yourself!",
+      "Work hard, dream big!",
+      "Keep going!",
+      "Stay positive!"
+    ];
+
+    let randomIndex = Math.floor(Math.random() * quotes.length);
+    let quote = quotes[randomIndex];
+
+    document.getElementById("quoteOutput").innerText = quote;
+  }
+
+  // 6. Show JSON Info
+  function showJSON() {
+    document.getElementById("jsonOutput").innerText = JSON.stringify(student, null, 2);
+  }
+</script>

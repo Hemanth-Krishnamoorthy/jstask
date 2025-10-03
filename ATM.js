@@ -30,7 +30,6 @@ if (pin === "1234") {
         alert("Invalid choice!");
     }
 
-    
 } else {
     alert("Incorrect PIN!");
 }
