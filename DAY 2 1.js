@@ -1,4 +1,4 @@
-//taska
+
 function hi(){
 let name=prompt("Enter ur name");
 let age=prompt("Enter ur age");
